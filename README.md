@@ -10,5 +10,5 @@
 - [OpenDota](https://docs.opendota.com/#section/Introduction)
 
 ## Metabase Dashboard
-![tab1](/assets/images/Metabase-tab-1.pdf)
-![tab2](/assets/images/Metabase-tab-2.pdf)
+![tab1](/assets/images/Metabase-tab-1.jpg)
+![tab2](/assets/images/Metabase-tab-2.jpg)
