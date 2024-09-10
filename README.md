@@ -8,6 +8,7 @@
 
 ## Data Source
 - [OpenDota](https://docs.opendota.com/#section/Introduction)
+  -- The OpenDota API provides Dota 2 related data including advanced match data extracted from match replays.
 
 ## Metabase Dashboard
 ![tab1](/assets/images/Metabase-tab-1.jpg)
