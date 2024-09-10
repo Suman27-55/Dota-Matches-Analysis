@@ -16,7 +16,8 @@ def picked_heroes(df: pd.DataFrame, pipeline: list) -> pd.DataFrame:
     hero_docs = fetch_documents(collection="Collection", query=pipeline)  # TODO: Replace 'Collection' with actual MongoDB collection name
     hero_df = pd.DataFrame(data=hero_docs)
 
-    # Create dictionaries to map hero IDs to hero names and hero names
+    # Create dictionaries to map hero IDs to hero names and names
+    ## Note : Hero name and name dont have the same value always, For ex: The hero shadowfiend's name in dota db is nevermore.
     hero_dict = dict(zip(hero_df.id, hero_df.hero_name))
     name_dict = dict(zip(hero_df.id, hero_df.name))
 

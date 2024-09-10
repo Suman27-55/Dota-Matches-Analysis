@@ -12,7 +12,6 @@ from Scripts.data_tranformations import picked_heroes, kill_count_calc
 config = configparser.ConfigParser()
 config.read('./config/config.ini')  # Fixed path to config file
 
-# MongoDB collection name where match records are stored
 matches_collection = ""  # TODO: Specify MongoDB collection name
 
 # BigQuery table ID and SQL query to fetch the latest match start time
@@ -83,13 +82,12 @@ def main():
     # Extract the latest start time
     for row in docs:
         max_start_time = row.start_time
-    # Convert latest start time to Unix timestamp
+
     unix_time = int(time.mktime(max_start_time.timetuple()))
     
     # Fetch matches data from OpenDota API
     matches = fetch_matches(unix_time=unix_time)
     
-    # Convert 'start_time' from Unix timestamp to datetime
     for match in matches:
         unix_start_time = match['start_time']
         match['start_time'] = datetime.datetime.strptime(str(datetime.datetime.fromtimestamp(unix_start_time)), '%Y-%m-%d %H:%M:%S')
@@ -98,15 +96,9 @@ def main():
     db_upload = insert_many(collection=matches_collection, data=matches)
     print("MongoDB upload status:", db_upload)
 
-    # Re-fetch the latest match record from BigQuery
-    docs = run_query(query=query)
-    for row in docs:
-        max_start_time = row.start_time
-
     # Fetch new match documents from MongoDB after the latest start time
     docs = fetch_documents(collection=matches_collection, query=mongo_matches(max_start_time))
     
-    # Create a DataFrame from the fetched MongoDB documents
     df = pd.DataFrame(data=docs)
     
     # Transform hero data using the pipeline
